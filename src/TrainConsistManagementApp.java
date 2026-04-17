@@ -1,38 +1,43 @@
 package TrainConsistManagementApp;
-import java.util.Arrays;
-public class TrainConsistManagementApp {
-    public static boolean searchBogie(String[] bogies, String key) {
+import java.util.*;
+import java.util.stream.*;
 
-        if (bogies == null || bogies.length == 0) {
-            throw new IllegalStateException("No bogies available in train. Cannot perform search.");
-        }
-        Arrays.sort(bogies);
-        int low = 0;
-        int high = bogies.length - 1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            int result = key.compareTo(bogies[mid]);
-            if (result == 0) {
-                return true;
-            } else if (result < 0) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
-            }
-        }
-        return false;
+class Bogie {
+    String type;
+    int capacity;
+
+    Bogie(String type, int capacity) {
+        this.type = type;
+        this.capacity = capacity;
     }
+
+    void display() {
+        System.out.println(type + " -> " + capacity);
+    }
+}
+
+class TrainConsistManagementApp{
     public static void main(String[] args) {
-        System.out.println("=========================================");
-        System.out.println("UC20 - Exception Handling During Search");
-        System.out.println("=========================================");
-        String[] bogies = {};
-        String searchKey = "BG101";
-        boolean found = searchBogie(bogies, searchKey);
-        if (found) {
-            System.out.println("Bogie " + searchKey + " found.");
-        } else {
-            System.out.println("Bogie " + searchKey + " not found.");
-        }
+
+        List<Bogie> bogies = Arrays.asList(
+                new Bogie("Sleeper", 72),
+                new Bogie("AC Chair", 56),
+                new Bogie("First Class", 24),
+                new Bogie("General", 90)
+        );
+
+        System.out.println("UC8 - Filter Passenger Bogies Using Streams\n");
+
+        System.out.println("All Bogies:");
+        bogies.forEach(b -> b.display());
+
+        List<Bogie> filtered = bogies.stream()
+                .filter(b -> b.capacity > 60)
+                .collect(Collectors.toList());
+
+        System.out.println("\nFiltered Bogies (Capacity > 60):");
+        filtered.forEach(b -> b.display());
+
+        System.out.println("\nUC8 filtering completed...");
     }
 }
