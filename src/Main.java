@@ -1,40 +1,39 @@
 package TrainConsistManagementApp;
-class CargoSafetyException extends RuntimeException {
-    public CargoSafetyException(String message) {
-        super(message);
-    }
-}
-class GoodsBogie {
-    String shape;
-    String cargo;
-    GoodsBogie(String shape) {
-        this.shape = shape;
-    }
-    void assignCargo(String cargoType) {
-        try {
-            if (shape.equalsIgnoreCase("Rectangular") &&
-                    cargoType.equalsIgnoreCase("Petroleum")) {
-                throw new CargoSafetyException("Unsafe cargo assignment!");
-            }
-            this.cargo = cargoType;
-            System.out.println("Cargo assigned successfully -> " + cargoType);
-        } catch (CargoSafetyException e) {
-            System.out.println("Error: " + e.getMessage());
-        } finally {
-            System.out.println("Cargo validation completed for " + shape + " bogie");
-        }
-    }
-}
-class TrainConsistManagementApp {   // removed 'public'
+
+class TrainConsistManagementApp {
     public static void main(String[] args) {
+
         System.out.println("=======================================");
-        System.out.println("UC15 - Safe Cargo Assignment");
+        System.out.println("UC18 - Linear Search for Bogie ID");
         System.out.println("=======================================\n");
-        GoodsBogie b1 = new GoodsBogie("Cylindrical");
-        b1.assignCargo("Petroleum");
-        System.out.println();
-        GoodsBogie b2 = new GoodsBogie("Rectangular");
-        b2.assignCargo("Petroleum");
-        System.out.println("\nUC15 runtime handling completed...");
+
+        // Array of bogie IDs
+        String[] bogieIds = {"BG101", "BG205", "BG309", "BG412", "BG550"};
+
+        System.out.println("Available Bogie IDs:");
+        for (String id : bogieIds) {
+            System.out.println(id);
+        }
+
+        // Search key
+        String searchId = "BG309";
+        boolean found = false;
+
+        // Linear Search
+        for (String id : bogieIds) {
+            if (id.equals(searchId)) {
+                found = true;
+                break; // stop when found
+            }
+        }
+
+        // Result
+        if (found) {
+            System.out.println("\nBogie " + searchId + " found in train consist.");
+        } else {
+            System.out.println("\nBogie " + searchId + " not found.");
+        }
+
+        System.out.println("\nUC18 search completed...");
     }
 }
