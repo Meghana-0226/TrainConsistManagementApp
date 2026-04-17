@@ -1,7 +1,12 @@
 package TrainConsistManagementApp;
 import java.util.Arrays;
- class TrainConsistManagementApp {
-    public static boolean binarySearch(String[] bogies, String key) {
+public class TrainConsistManagementApp {
+    public static boolean searchBogie(String[] bogies, String key) {
+
+        if (bogies == null || bogies.length == 0) {
+            throw new IllegalStateException("No bogies available in train. Cannot perform search.");
+        }
+        Arrays.sort(bogies);
         int low = 0;
         int high = bogies.length - 1;
         while (low <= high) {
@@ -19,21 +24,15 @@ import java.util.Arrays;
     }
     public static void main(String[] args) {
         System.out.println("=========================================");
-        System.out.println("UC19 - Binary Search for Bogie ID");
+        System.out.println("UC20 - Exception Handling During Search");
         System.out.println("=========================================");
-        String[] bogies = {"BG101", "BG205", "BG309", "BG412", "BG550"};
-        Arrays.sort(bogies);
-        System.out.println("\nSorted Bogie IDs:");
-        for (String b : bogies) {
-            System.out.println(b);
-        }
-        String searchKey = "BG309";
-        boolean found = binarySearch(bogies, searchKey);
+        String[] bogies = {};
+        String searchKey = "BG101";
+        boolean found = searchBogie(bogies, searchKey);
         if (found) {
-            System.out.println("\nBogie " + searchKey + " found using Binary Search.");
+            System.out.println("Bogie " + searchKey + " found.");
         } else {
-            System.out.println("\nBogie " + searchKey + " not found.");
+            System.out.println("Bogie " + searchKey + " not found.");
         }
-        System.out.println("\nUC19 search completed...");
     }
 }
