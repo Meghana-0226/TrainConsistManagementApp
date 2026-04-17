@@ -1,38 +1,32 @@
 package TrainConsistManagementApp;
-import java.util.Arrays;
-public class TrainConsistManagementApp {
-    public static boolean searchBogie(String[] bogies, String key) {
-
-        if (bogies == null || bogies.length == 0) {
-            throw new IllegalStateException("No bogies available in train. Cannot perform search.");
-        }
-        Arrays.sort(bogies);
-        int low = 0;
-        int high = bogies.length - 1;
-        while (low <= high) {
-            int mid = (low + high) / 2;
-            int result = key.compareTo(bogies[mid]);
-            if (result == 0) {
-                return true;
-            } else if (result < 0) {
-                high = mid - 1;
-            } else {
-                low = mid + 1;
-            }
-        }
-        return false;
+import java.util.*;
+class Bogie {
+    String name;
+    int capacity;
+    Bogie(String name, int capacity) {
+        this.name = name;
+        this.capacity = capacity;
     }
+}
+ class TrainConsistManagementApp{
     public static void main(String[] args) {
         System.out.println("=========================================");
-        System.out.println("UC20 - Exception Handling During Search");
+        System.out.println("UC7 - Sort Bogies by Capacity (Comparator)");
         System.out.println("=========================================");
-        String[] bogies = {};
-        String searchKey = "BG101";
-        boolean found = searchBogie(bogies, searchKey);
-        if (found) {
-            System.out.println("Bogie " + searchKey + " found.");
-        } else {
-            System.out.println("Bogie " + searchKey + " not found.");
+        List<Bogie> bogies = new ArrayList<>();
+        bogies.add(new Bogie("Sleeper", 72));
+        bogies.add(new Bogie("AC Chair", 56));
+        bogies.add(new Bogie("First Class", 24));
+        bogies.add(new Bogie("General", 90));
+        System.out.println("\nBefore Sorting:");
+        for (Bogie b : bogies) {
+            System.out.println(b.name + " -> " + b.capacity);
         }
+        bogies.sort(Comparator.comparingInt(b -> b.capacity));
+        System.out.println("\nAfter Sorting by Capacity:");
+        for (Bogie b : bogies) {
+            System.out.println(b.name + " -> " + b.capacity);
+        }
+        System.out.println("\nUC7 sorting completed...");
     }
 }
