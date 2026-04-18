@@ -1,39 +1,23 @@
 package TrainConsistManagementApp;
-import java.util.*;
-import java.util.stream.*;
-class Bogie {
-    String type;
-    int capacity;
-    Bogie(String type, int capacity) {
-        this.type = type;
-        this.capacity = capacity;
-    }
-    public String getType() {
-        return type;
-    }
-    public int getCapacity() {
-        return capacity;
-    }
-}
-class TrainConsistManagementApp {
+import java.util.regex.*;
+ class TrainConsistManagementApp {
     public static void main(String[] args) {
-        System.out.println("==============================================");
-        System.out.println("UC10 - Count Total Seats in Train");
-        System.out.println("==============================================\n");
-        List<Bogie> bogies = Arrays.asList(
-                new Bogie("Sleeper", 72),
-                new Bogie("AC Chair", 56),
-                new Bogie("First Class", 24),
-                new Bogie("Sleeper", 70)
-        );
-        System.out.println("Bogies in Train:");
-        for (Bogie b : bogies) {
-            System.out.println(b.getType() + " -> " + b.getCapacity());
-        }
-        int totalSeats = bogies.stream()
-                .map(b -> b.getCapacity())
-                .reduce(0, Integer::sum);
-        System.out.println("\nTotal Seating Capacity of Train: " + totalSeats);
-        System.out.println("\nUC10 aggregation completed...");
+        System.out.println("==================================================");
+        System.out.println("UC11 - Validate Train ID and Cargo Code");
+        System.out.println("==================================================\n");
+        String trainId = "TRN-6524";
+        String cargoCode = "PET-FH";
+        System.out.println("Enter Train ID (Format: TRN-1234): " + trainId);
+        System.out.println("Enter Cargo Code (Format: PET-AB): " + cargoCode);
+        Pattern trainPattern = Pattern.compile("TRN-\\d{4}");
+        Pattern cargoPattern = Pattern.compile("PET-[A-Z]{2}");
+        Matcher trainMatcher = trainPattern.matcher(trainId);
+        Matcher cargoMatcher = cargoPattern.matcher(cargoCode);
+        boolean isTrainValid = trainMatcher.matches();
+        boolean isCargoValid = cargoMatcher.matches();
+        System.out.println("\nValidation Results:");
+        System.out.println("Train ID Valid: " + isTrainValid);
+        System.out.println("Cargo Code Valid: " + isCargoValid);
+        System.out.println("\nUC11 validation completed...");
     }
 }
